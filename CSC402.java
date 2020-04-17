@@ -7,8 +7,12 @@ public class CSC402
     int option;
     optionInput = JOptionPane.showInputDialog("Search by what?(Enter Number 1-6)\n1. Genre\n2. Title\n3. Artist\n4. Length\n5. Album\n6. Year");
     option = Integer.parseInt(optionInput);
-    while(0 < option && option < 7)
+    while (option < 0 || option > 7)
     {
+      JOptionPane.showMessageDialog(null, "Error Try Again!");
+      optionInput = JOptionPane.showInputDialog("Search by what?(Enter Number 1-6)\n1. Genre\n2. Title\n3. Artist\n4. Length\n5. Album\n6. Year");
+      option = Integer.parseInt(optionInput);
+    }
       if (option == 1)
       {
         String genreYN1;
@@ -129,6 +133,6 @@ public class CSC402
           JOptionPane.showMessageDialog(null, "Error");
         }
       }//Option 6 End
-    }//While loop 1-6 End
+    JOptionPane.showMessageDialog(null, "Exiting Program");
   }//Main End
 }//Program End

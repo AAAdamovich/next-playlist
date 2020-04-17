@@ -1,4 +1,4 @@
-import javax.swing.JOptionPane;
+import javax.swing.JOptionPane; 
 public class CSC402
 {
   public static void main(String[] args)
@@ -30,7 +30,7 @@ public class CSC402
         }
         else
         {
-          JOptionPane.showMessageDialog(null, "Error");
+          JOptionPane.showMessageDialog(null, "Error Try Again");
         }
       }//Option 1 End
       else if (option == 2)
@@ -70,7 +70,7 @@ public class CSC402
         }
         else
         {
-          JOptionPane.showMessageDialog(null, "Error");
+          JOptionPane.showMessageDialog(null, "Error Try Again");
         }
       }//Option 3 End
       else if (option == 4)
@@ -90,7 +90,7 @@ public class CSC402
         }
         else
         {
-          JOptionPane.showMessageDialog(null, "Error");
+          JOptionPane.showMessageDialog(null, "Error Try Again");
         }
       }//Option 4 End
       else if (option == 5)
@@ -110,7 +110,7 @@ public class CSC402
         }
         else
         {
-          JOptionPane.showMessageDialog(null, "Error");
+          JOptionPane.showMessageDialog(null, "Error Try Again");
         }
       }//Option 5 End
       else if (option == 6)
@@ -130,7 +130,7 @@ public class CSC402
         }
         else
         {
-          JOptionPane.showMessageDialog(null, "Error");
+          JOptionPane.showMessageDialog(null, "Error Try Again");
         }
       }//Option 6 End
     JOptionPane.showMessageDialog(null, "Exiting Program");

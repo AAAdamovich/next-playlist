@@ -1,8 +1,8 @@
 import javax.swing.JOptionPane;
 public class CSC402
 {
-	public static void main(String[] args)
-	{
+  public static void main(String[] args)
+  {
     String optionInput;
     int option;
     optionInput = JOptionPane.showInputDialog("Search by what?(Enter Number 1-6)\n1. Genre\n2. Title\n3. Artist\n4. Length\n5. Album\n6. Year");

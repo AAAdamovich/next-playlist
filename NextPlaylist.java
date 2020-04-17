@@ -1,7 +1,66 @@
+/*  Antony Adamovich, Cheuk Cheung, Louis Cumberland, Tim McGowan
+*   NextPlaylist.java for Next-Playlist SE Project 
+*   West Chester University - CSC 402 - Dr. Richard G. Epstein
+*   Created: 16-APR-2020
+*   Please see https://github.com/AAAdamovich/next-playlist
+*      for version tracking
+*/
+
+package nextplaylist;
+
+import java.io.PrintStream;
+import java.sql.*;
 import javax.swing.JOptionPane; 
-public class CSC402
+
+public class NextPlaylist
 {
-  public static void main(String[] args)
+    
+  // TODO - Potential feature to add songs to big list and then shuffle
+  private static void addSongs(Object[] list){}
+
+  /** Queries the database for songs based on an input query and prints 
+  * the results immediately to the output stream. 
+  * !! Exception handling is not considered !! 
+  * 
+  * @param output The stream to which the query results will be sent to
+  * @param query A SQL query that describes what sort of information is
+  *   to be requested from the server
+  * 
+  * @throws SQLException
+  */
+  private static void printSongs(PrintStream output, String query) throws SQLException
+  {
+    // TODO - Credentials needed to log onto remote server
+    final String SERVER_IP = "";
+    final String DATABASE = "";
+    final String USERNAME = "";
+    final String PASSWORD = "";
+  
+    // Credentials are used to establish a connection
+    Connection conn = DriverManager.getConnection("jdbc:mysql://" + SERVER_IP + "/" + DATABASE, USERNAME, PASSWORD);
+    // The statement object will drive any queries to the database
+    Statement st = conn.createStatement();
+    ResultSet results = st.executeQuery(query);
+    // metadata describes how the results are organized
+    // Used to fetch the column count of the results table,
+    //  necessary for printing the results later
+    ResultSetMetaData metadata = results.getMetaData();
+        
+    // These two loops control printing of the query results
+    // While loop iterates by row of results
+    while (results.next()){
+      // For loop iterates by column of results
+      for(int i = 1; i <= metadata.getColumnCount(); i++){
+        output.print(results.getString(i) + " ");
+      }
+      // Insert newline for every row iteration
+      output.println();
+    }
+    // Extra padding for any text that comes after this method call
+    output.println();
+  }
+  
+  public static void main(String[] args) throws SQLException
   {
     String optionInput;
     int option;

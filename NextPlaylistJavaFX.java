@@ -1,3 +1,10 @@
+/*  Antony Adamovich, Cheuk Cheung, Louis Cumberland, Tim McGowan
+*   NextPlaylist.java for Next-Playlist SE Project 
+*   West Chester University - CSC 402 - Dr. Richard G. Epstein
+*   Created: 16-APR-2020
+*   Please see https://github.com/AAAdamovich/next-playlist for version tracking
+*/
+//  Use jGrasp to run this program, if your Editor can't run JavaFX
 import java.io.PrintStream;
 import java.sql.*;
 import javafx.application.Application;
@@ -23,7 +30,16 @@ public class NextPlaylistJavaFX extends Application
 {
   private static void addSongs(Object[] list)
   {
-  
+    /** Queries the database for songs based on an input query and prints 
+  * the results immediately to the output stream. 
+  * !! Exception handling is not considered !! 
+  * 
+  * @param output The stream to which the query results will be sent to
+  * @param query A SQL query that describes what sort of information is
+  *   to be requested from the server
+  * 
+  * @throws SQLException
+  */
   }//end of addSongs
   private static void printSongs(PrintStream output, String query) throws SQLException
   {

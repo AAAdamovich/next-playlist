@@ -26,7 +26,7 @@ import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.StackPane;
 
-public class NextPlaylistJavaFX extends Application
+public class NextPlaylist extends Application
 {
   private static void addSongs(Object[] list)
   {

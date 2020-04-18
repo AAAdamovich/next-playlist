@@ -74,9 +74,10 @@ public class NextPlaylistJavaFX extends Application
   }//end of printSongs
   
   
-  private TextField searchbar1, searchbar2, searchbar3, searchbar5, searchbar6;
+  private TextField searchbar1, searchbar2, FirstName, LastName, searchbar5, searchbar6;
   private Label label, resultLabel4;
   private RadioButton ShortButton, MediumButton, LongButton;
+  private CheckBox g1,g2,g3,g4,g5,g6,g7,g8,g9;
   Stage window;
   Scene scene0,scene1,scene2,scene3,scene4,scene5,scene6;
   
@@ -157,13 +158,22 @@ public class NextPlaylistJavaFX extends Application
     
     //scene 3
      StackPane layoutArtist = new StackPane();
-     searchbar3 = new TextField();
+     Label message3 = new Label("Search By: ");
+     Label labelF = new Label("First Name");
+     Label labelL = new Label("Last Name");
+     FirstName = new TextField();
+     LastName = new TextField();
      Button search3 = new Button("Search");
      search3.setOnAction(new ButtonClickHandler3());
      Button back3 = new Button("Back");
      back3.setOnAction(y -> window.setScene(scene0));
+     GridPane ArtistGrid = new GridPane();
+     ArtistGrid.add(labelF, 0, 0);
+     ArtistGrid.add(labelL, 1, 0);
+     ArtistGrid.add(FirstName, 0, 1);
+     ArtistGrid.add(LastName, 1, 1);
      HBox buttonOp3 = new HBox(10, search3, back3);
-     VBox layout3 = new VBox(10, searchbar3, buttonOp3);
+     VBox layout3 = new VBox(10,message3, ArtistGrid, buttonOp3);
      layoutArtist.getChildren().add(layout3);
      scene3 = new Scene(layoutArtist, 400, 200);
     //end scene3 
@@ -259,10 +269,13 @@ class ButtonClickHandler3 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      String search = searchbar3.getText();
-      System.out.println(search);
+      //String 
+      String searchF = FirstName.getText();
+      String searchL = LastName.getText();
+      System.out.println(searchF + " " + searchL);
     }//End handle
   }//End ButtomClickHandler
+
 class ButtonClickHandler4 implements EventHandler<ActionEvent>
   {
     @Override

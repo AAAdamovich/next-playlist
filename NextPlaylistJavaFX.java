@@ -81,7 +81,7 @@ public class NextPlaylistJavaFX extends Application
     VBox vbox = new VBox(10, label0, gridpane, label);
     Scene scene = new Scene(vbox, 400, 200);
     primaryStage.setScene(scene);
-    primaryStage.setTitle("First GUI");
+    primaryStage.setTitle("Searching For Music App");
     primaryStage.show();
   }//End start
 

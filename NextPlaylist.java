@@ -28,9 +28,11 @@ import javafx.scene.layout.StackPane;
 
 public class NextPlaylist extends Application
 {
-  private static void addSongs(Object[] list)
-  {
-    /** Queries the database for songs based on an input query and prints 
+  // NOT YET IMPLEMENTED
+  private static void addSongs(Object[] list){}
+  // NOT YET IMPLEMENTED
+  
+  /** Queries the database for songs based on an input query and prints 
   * the results immediately to the output stream. 
   * !! Exception handling is not considered !! 
   * 
@@ -40,17 +42,16 @@ public class NextPlaylist extends Application
   * 
   * @throws SQLException
   */
-  }//end of addSongs
   private static void printSongs(PrintStream output, String query) throws SQLException
   {
     // TODO - Credentials needed to log onto remote server
-    final String SERVER_IP = "";
+    final String SERVER = "taz.wcupa.edu";
     final String DATABASE = "DarqChocolate";
     final String USERNAME = "CnC";
     final String PASSWORD = "vQB3po5qdvEuRANA";
 
     // Credentials are used to establish a connection
-    Connection conn = DriverManager.getConnection("jdbc:mysql://" + SERVER_IP + "/" + DATABASE, USERNAME, PASSWORD);
+    Connection conn = DriverManager.getConnection("jdbc:mysql:" + SERVER + "/" + DATABASE, USERNAME, PASSWORD);
     // The statement object will drive any queries to the database
     Statement st = conn.createStatement();
     ResultSet results = st.executeQuery(query);
@@ -84,6 +85,9 @@ public class NextPlaylist extends Application
   @Override
   public void start(Stage primaryStage) throws Exception
   {
+    // !! Query Testing - To be removed !!
+    //printSongs(System.out, "SELECT * FROM Songs");
+      
     window = primaryStage;
     //scene0
     Label label0 = new Label("Click on the what do want to search by");

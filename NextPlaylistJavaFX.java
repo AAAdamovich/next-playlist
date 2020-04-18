@@ -5,12 +5,17 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.geometry.Pos;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
+import javafx.scene.layout.StackPane;
 
 public class NextPlaylistJavaFX extends Application
 {
@@ -49,11 +54,22 @@ public class NextPlaylistJavaFX extends Application
     // Extra padding for any text that comes after this method call
     output.println();
   }//end of printSongs
+  
+  
+  private TextField searchbar1, searchbar2, searchbar3, searchbar5, searchbar6;
   private Label label;
+  private RadioButton ShortButton;
+  private RadioButton MediumButton;
+  private RadioButton LongButton;
+  Stage window;
+  Scene scene0,scene1,scene2,scene3,scene4,scene5,scene6;
+  
   @Override
-  public void start(Stage primaryStage)
+  public void start(Stage primaryStage) throws Exception
   {
-    Label label0 = new Label("Click on the what do want to search by");
+    window = primaryStage;
+    //scene0
+    Label label0 = new Label("Enter name then, Click on the what do want to search by");
     Button label1 = new Button(" Genre ");
     Button label2 = new Button(" Title ");
     Button label3 = new Button(" Artist ");
@@ -61,7 +77,6 @@ public class NextPlaylistJavaFX extends Application
     Button label5 = new Button(" Album ");
     Button label6 = new Button(" Year ");
     label = new Label();
-
     GridPane gridpane = new GridPane();
     gridpane.add(label1,0,1);
     gridpane.add(label2,1,1);
@@ -69,19 +84,101 @@ public class NextPlaylistJavaFX extends Application
     gridpane.add(label4,0,2);
     gridpane.add(label5,1,2);
     gridpane.add(label6,2,2);
-    
-    label1.setOnAction(new ButtonClickHandler1());
-    label2.setOnAction(new ButtonClickHandler2());
-    label3.setOnAction(new ButtonClickHandler3());
-    label4.setOnAction(new ButtonClickHandler4());
-    label5.setOnAction(new ButtonClickHandler5());
-    label6.setOnAction(new ButtonClickHandler6());
-
-    
+    label1.setOnAction(e -> window.setScene(scene1));
+    label2.setOnAction(e -> window.setScene(scene2));
+    label3.setOnAction(e -> window.setScene(scene3));
+    label4.setOnAction(e -> window.setScene(scene4));
+    label5.setOnAction(e -> window.setScene(scene5));
+    label6.setOnAction(e -> window.setScene(scene6));
     VBox vbox = new VBox(10, label0, gridpane, label);
-    Scene scene = new Scene(vbox, 400, 200);
-    primaryStage.setScene(scene);
-    primaryStage.setTitle("Searching For Music App");
+    scene0 = new Scene(vbox, 400, 200);
+    //end scene 0
+    
+    //scene1
+    StackPane layoutGenre = new StackPane();
+    searchbar1 = new TextField();
+    Button search1 = new Button("Search");
+    search1.setOnAction(new ButtonClickHandler1());
+    Button back1 = new Button("Back");
+    back1.setOnAction(w -> window.setScene(scene0));
+    HBox buttonOp1 = new HBox(10, search1, back1);
+    VBox layout1 = new VBox(10, searchbar1, buttonOp1);
+    layoutGenre.getChildren().add(layout1);
+    scene1 = new Scene(layoutGenre, 400, 200);
+    //end scene1
+    
+    //scene 2
+     StackPane layoutTitle = new StackPane();
+     searchbar2 = new TextField();
+     Button search2 = new Button("Search");
+     search2.setOnAction(new ButtonClickHandler2());
+     Button back2 = new Button("Back");
+     back2.setOnAction(y -> window.setScene(scene0));
+     HBox buttonOp2 = new HBox(10, search2, back2);
+     VBox layout2 = new VBox(10, searchbar2, buttonOp2);
+     layoutTitle.getChildren().add(layout2);
+     scene2 = new Scene(layoutTitle, 400, 200);
+    //end scene2
+    
+    //scene 3
+     StackPane layoutArtist = new StackPane();
+     searchbar3 = new TextField();
+     Button search3 = new Button("Search");
+     search3.setOnAction(new ButtonClickHandler3());
+     Button back3 = new Button("Back");
+     back3.setOnAction(y -> window.setScene(scene0));
+     HBox buttonOp3 = new HBox(10, search3, back3);
+     VBox layout3 = new VBox(10, searchbar3, buttonOp3);
+     layoutArtist.getChildren().add(layout3);
+     scene3 = new Scene(layoutArtist, 400, 200);
+    //end scene3 
+    
+    //scene4
+    StackPane layoutlength = new StackPane();
+    ShortButton = new RadioButton("Short");
+    MediumButton = new RadioButton("Medium");
+    LongButton = new RadioButton("Long");
+    Button search4 = new Button("Search");
+    
+    Button back4 = new Button("Back");
+    back4.setOnAction(w -> window.setScene(scene0));
+    
+    HBox radioButton = new HBox(20, ShortButton, MediumButton, LongButton);
+    HBox buttonOp4 = new HBox(10, search4, back4);
+    VBox layout4 = new VBox(10, radioButton, buttonOp4);
+    layoutlength.getChildren().add(layout4);
+    scene4 = new Scene(layoutlength,400,200);
+    //end scene4
+    
+    //scene 5
+    StackPane layoutAlbum = new StackPane();
+    searchbar5 = new TextField();
+    Button search5 = new Button("Search");
+    search5.setOnAction(new ButtonClickHandler5());
+    Button back5 = new Button("Back");
+    back5.setOnAction(y -> window.setScene(scene0));
+    HBox buttonOp5 = new HBox(10, search5, back5);
+    VBox layout5 = new VBox(10, searchbar5, buttonOp5);
+    layoutAlbum.getChildren().add(layout5);
+    scene5 = new Scene(layoutAlbum, 400, 200);
+    //end scene 5
+    
+    //scene6
+    StackPane layoutYear = new StackPane();
+    searchbar6 = new TextField();
+    Button search6 = new Button("Search");
+    search6.setOnAction(new ButtonClickHandler6());
+    Button back6 = new Button("Back");
+    back6.setOnAction(y -> window.setScene(scene0));
+    HBox buttonOp6 = new HBox(10, search6, back6);
+    VBox layout6 = new VBox(10, searchbar6, buttonOp6);
+    layoutYear.getChildren().add(layout6);
+    scene6 = new Scene(layoutYear, 400, 200);
+    //end scene6
+    
+    //Start Scene
+    primaryStage.setScene(scene0);
+    primaryStage.setTitle("Searching for Music App");
     primaryStage.show();
   }//End start
 
@@ -90,7 +187,9 @@ class ButtonClickHandler1 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("You want to search by Genre.");
+      label.setText("Searching by Genre.");
+      String search = searchbar1.getText();
+      System.out.println(search);
     }//End handle
   }//End ButtomClickHandler
 class ButtonClickHandler2 implements EventHandler<ActionEvent>
@@ -98,7 +197,9 @@ class ButtonClickHandler2 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("You want to search by Title.");
+      label.setText("Searching by Title.");
+      String search = searchbar2.getText();
+      System.out.println(search);
     }//End handle
   }//End ButtomClickHandler
 class ButtonClickHandler3 implements EventHandler<ActionEvent>
@@ -106,7 +207,9 @@ class ButtonClickHandler3 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("You want to search by Artist.");
+      label.setText("Searching by Artist.");
+      String search = searchbar3.getText();
+      System.out.println(search);
     }//End handle
   }//End ButtomClickHandler
 class ButtonClickHandler4 implements EventHandler<ActionEvent>
@@ -114,7 +217,7 @@ class ButtonClickHandler4 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("You want to search by Length.");
+      label.setText("Searching by Length.");      
     }//End handle
   }//End ButtomClickHandler
 class ButtonClickHandler5 implements EventHandler<ActionEvent>
@@ -122,7 +225,9 @@ class ButtonClickHandler5 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("You want to search by Album.");
+      label.setText("Searching by Album.");
+      String search = searchbar5.getText();
+      System.out.println(search);
     }//End handle
   }//End ButtomClickHandler
 class ButtonClickHandler6 implements EventHandler<ActionEvent>
@@ -130,7 +235,9 @@ class ButtonClickHandler6 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("You want to search by Year.");
+      label.setText("Searching by Year.");
+      int search = Integer.parseInt(searchbar6.getText());
+      System.out.println(search);
     }//End handle
   }//End ButtomClickHandler
 

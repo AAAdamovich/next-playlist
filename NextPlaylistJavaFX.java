@@ -86,7 +86,7 @@ public class NextPlaylistJavaFX extends Application
   {
     window = primaryStage;
     //scene0
-    Label label0 = new Label("Enter name then, Click on the what do want to search by");
+    Label label0 = new Label("Click on the what do want to search by");
     Button label1 = new Button(" Genre ");
     Button label2 = new Button(" Title ");
     Button label3 = new Button(" Artist ");
@@ -113,6 +113,7 @@ public class NextPlaylistJavaFX extends Application
     
     //scene1
     StackPane layoutGenre = new StackPane();
+    Label labelG = new Label("Check the ones you would like to search by:");
     g1 = new CheckBox("POP");
     g2 = new CheckBox("Hip Hop");
     g3 = new CheckBox("Rock");
@@ -138,7 +139,7 @@ public class NextPlaylistJavaFX extends Application
     Button back1 = new Button("Back");
     back1.setOnAction(w -> window.setScene(scene0));
     HBox buttonOp1 = new HBox(10, search1, back1);
-    VBox layout1 = new VBox(10, Genregrid, buttonOp1);
+    VBox layout1 = new VBox(10, labelG, Genregrid, buttonOp1);
     layoutGenre.getChildren().add(layout1);
     scene1 = new Scene(layoutGenre, 400, 200);
     //end scene1
@@ -234,7 +235,7 @@ public class NextPlaylistJavaFX extends Application
 
 private void handleOptions(CheckBox  g1, CheckBox  g2, CheckBox  g3, CheckBox  g4, CheckBox  g5, CheckBox  g6, CheckBox  g7, CheckBox  g8, CheckBox  g9)
    {
-      String message = "You Chosed\n";
+      String message = "You chose to search by\n";
       if (g1.isSelected())
       message += "POP\n";
       if (g2.isSelected())
@@ -242,7 +243,7 @@ private void handleOptions(CheckBox  g1, CheckBox  g2, CheckBox  g3, CheckBox  g
       if (g3.isSelected())
       message += "Rock\n";
       if (g4.isSelected())
-      message += "Metal";
+      message += "Metal\n";
       if (g5.isSelected())
       message += "Jazz\n";
       if (g6.isSelected())

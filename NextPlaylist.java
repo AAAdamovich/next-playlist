@@ -45,9 +45,9 @@ public class NextPlaylist extends Application
   {
     // TODO - Credentials needed to log onto remote server
     final String SERVER_IP = "";
-    final String DATABASE = "";
-    final String USERNAME = "";
-    final String PASSWORD = "";
+    final String DATABASE = "DarqChocolate";
+    final String USERNAME = "CnC";
+    final String PASSWORD = "vQB3po5qdvEuRANA";
 
     // Credentials are used to establish a connection
     Connection conn = DriverManager.getConnection("jdbc:mysql://" + SERVER_IP + "/" + DATABASE, USERNAME, PASSWORD);

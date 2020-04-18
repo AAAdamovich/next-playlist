@@ -53,13 +53,14 @@ public class NextPlaylistJavaFX extends Application
   @Override
   public void start(Stage primaryStage)
   {
-    label = new Label("Click on the what do want to search by");
+    Label label0 = new Label("Click on the what do want to search by");
     Button label1 = new Button(" Genre ");
     Button label2 = new Button(" Title ");
     Button label3 = new Button(" Artist ");
     Button label4 = new Button(" Length ");
     Button label5 = new Button(" Album ");
     Button label6 = new Button(" Year ");
+    label = new Label();
 
     GridPane gridpane = new GridPane();
     gridpane.add(label1,0,1);
@@ -77,8 +78,8 @@ public class NextPlaylistJavaFX extends Application
     label6.setOnAction(new ButtonClickHandler6());
 
     
-    VBox vbox = new VBox(10, label, gridpane);
-    Scene scene = new Scene(vbox, 600, 300);
+    VBox vbox = new VBox(10, label0, gridpane, label);
+    Scene scene = new Scene(vbox, 400, 200);
     primaryStage.setScene(scene);
     primaryStage.setTitle("First GUI");
     primaryStage.show();

@@ -24,13 +24,13 @@ public class Test {
   private static void printSongs(PrintStream output, String query) throws SQLException
   {
     // TODO - Credentials needed to log onto remote server
-    final String SERVER = "taz.wcupa.edu";
+    final String SERVER = "roadrunner.cs.wcupa.edu";
     final String DATABASE = "DarqChocolate";
     final String USERNAME = "CnC";
     final String PASSWORD = "vQB3po5qdvEuRANA";
 
     // Credentials are used to establish a connection
-    Connection conn = DriverManager.getConnection("jdbc:mysql://taz.wcupa.edu/" + DATABASE, USERNAME, PASSWORD);
+    Connection conn = DriverManager.getConnection("jdbc:mysql://" + SERVER + "/" + DATABASE, USERNAME, PASSWORD);
     // The statement object will drive any queries to the database
     Statement st = conn.createStatement();
     ResultSet results = st.executeQuery(query);

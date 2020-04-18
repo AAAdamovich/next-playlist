@@ -12,7 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.CheckBox;
 import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.StackPane;
@@ -94,13 +96,32 @@ public class NextPlaylistJavaFX extends Application
     
     //scene1
     StackPane layoutGenre = new StackPane();
-    searchbar1 = new TextField();
+    g1 = new CheckBox("POP");
+    g2 = new CheckBox("Hip Hop");
+    g3 = new CheckBox("Rock");
+    g4 = new CheckBox("Metal");
+    g5 = new CheckBox("Jazz");
+    g6 = new CheckBox("Country");
+    g7 = new CheckBox("Classical");
+    g8 = new CheckBox("Blues");
+    g9 = new CheckBox("Instrumental");
+    GridPane Genregrid = new GridPane();
+    Genregrid.add(g1,0,0);
+    Genregrid.add(g2,0,1);
+    Genregrid.add(g3,0,2);
+    Genregrid.add(g4,1,0);
+    Genregrid.add(g5,1,1);
+    Genregrid.add(g6,1,2);
+    Genregrid.add(g7,2,0);
+    Genregrid.add(g8,2,1);
+    Genregrid.add(g9,2,2);
+    
     Button search1 = new Button("Search");
-    search1.setOnAction(new ButtonClickHandler1());
+    search1.setOnAction(e -> handleOptions(g1,g2,g3,g4,g5,g6,g7,g8,g9));
     Button back1 = new Button("Back");
     back1.setOnAction(w -> window.setScene(scene0));
     HBox buttonOp1 = new HBox(10, search1, back1);
-    VBox layout1 = new VBox(10, searchbar1, buttonOp1);
+    VBox layout1 = new VBox(10, Genregrid, buttonOp1);
     layoutGenre.getChildren().add(layout1);
     scene1 = new Scene(layoutGenre, 400, 200);
     //end scene1
@@ -185,15 +206,29 @@ public class NextPlaylistJavaFX extends Application
     primaryStage.show();
   }//End start
 
-class ButtonClickHandler1 implements EventHandler<ActionEvent>
-  {
-    @Override
-    public void handle(ActionEvent event)
-    {
-      String search = searchbar1.getText();
-      System.out.println(search);
-    }//End handle
-  }//End ButtomClickHandler
+private void handleOptions(CheckBox  g1, CheckBox  g2, CheckBox  g3, CheckBox  g4, CheckBox  g5, CheckBox  g6, CheckBox  g7, CheckBox  g8, CheckBox  g9)
+   {
+      String message = "You Chosed\n";
+      if (g1.isSelected())
+      message += "POP\n";
+      if (g2.isSelected())
+      message += "Hip Hop\n";
+      if (g3.isSelected())
+      message += "Rock\n";
+      if (g4.isSelected())
+      message += "Metal";
+      if (g5.isSelected())
+      message += "Jazz\n";
+      if (g6.isSelected())
+      message += "Country\n";
+      if (g7.isSelected())
+      message += "Classical\n";
+      if (g8.isSelected())
+      message += "Blues\n";
+      if (g9.isSelected())
+      message += "Instrumental\n";
+      System.out.println(message);
+  }//End handleOptions
 class ButtonClickHandler2 implements EventHandler<ActionEvent>
   {
     @Override

@@ -6,7 +6,7 @@
 *      for version tracking
 */
 
-package nextplaylist;
+//package nextplaylist;
 
 import java.io.PrintStream;
 import java.sql.*;
@@ -16,7 +16,7 @@ public class NextPlaylist
 {
     
   // TODO - Potential feature to add songs to big list and then shuffle
-  private static void addSongs(Object[] list){}
+  //private static void addSongs(Object[] list){}
 
   /** Queries the database for songs based on an input query and prints 
   * the results immediately to the output stream. 
@@ -31,13 +31,13 @@ public class NextPlaylist
   private static void printSongs(PrintStream output, String query) throws SQLException
   {
     // TODO - Credentials needed to log onto remote server
-    final String SERVER_IP = "";
-    final String DATABASE = "";
-    final String USERNAME = "";
-    final String PASSWORD = "";
+    final String SERVER = "taz.wcupa.edu";
+    final String DATABASE = "DarqChocolate";
+    final String USERNAME = "CnC";
+    final String PASSWORD = "vQB3po5qdvEuRANA";
   
     // Credentials are used to establish a connection
-    Connection conn = DriverManager.getConnection("jdbc:mysql://" + SERVER_IP + "/" + DATABASE, USERNAME, PASSWORD);
+    Connection conn = DriverManager.getConnection("jdbc:mysql:" + SERVER + "/" + DATABASE, USERNAME, PASSWORD);
     // The statement object will drive any queries to the database
     Statement st = conn.createStatement();
     ResultSet results = st.executeQuery(query);
@@ -62,6 +62,7 @@ public class NextPlaylist
   
   public static void main(String[] args) throws SQLException
   {
+    printSongs(System.out, "SELECT * FROM Song");
     String optionInput;
     int option;
     optionInput = JOptionPane.showInputDialog("Search by what?(Enter Number 1-6)\n1. Genre\n2. Title\n3. Artist\n4. Length\n5. Album\n6. Year");

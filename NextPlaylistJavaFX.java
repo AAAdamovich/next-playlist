@@ -12,7 +12,7 @@ import javafx.geometry.Pos;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 
-public class CSC402JavaFX extends Application
+public class NextPlaylistJavaFX extends Application
 {
   private static void addSongs(Object[] list)
   {

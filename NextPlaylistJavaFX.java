@@ -57,10 +57,8 @@ public class NextPlaylistJavaFX extends Application
   
   
   private TextField searchbar1, searchbar2, searchbar3, searchbar5, searchbar6;
-  private Label label;
-  private RadioButton ShortButton;
-  private RadioButton MediumButton;
-  private RadioButton LongButton;
+  private Label label, resultLabel4;
+  private RadioButton ShortButton, MediumButton, LongButton;
   Stage window;
   Scene scene0,scene1,scene2,scene3,scene4,scene5,scene6;
   
@@ -138,8 +136,13 @@ public class NextPlaylistJavaFX extends Application
     ShortButton = new RadioButton("Short");
     MediumButton = new RadioButton("Medium");
     LongButton = new RadioButton("Long");
+    ToggleGroup radioGroup = new ToggleGroup();
+    ShortButton.setToggleGroup(radioGroup);
+    MediumButton.setToggleGroup(radioGroup);
+    LongButton.setToggleGroup(radioGroup);
+    MediumButton.setSelected(true);
     Button search4 = new Button("Search");
-    
+    search4.setOnAction(new ButtonClickHandler4());
     Button back4 = new Button("Back");
     back4.setOnAction(w -> window.setScene(scene0));
     
@@ -187,7 +190,6 @@ class ButtonClickHandler1 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("Searching by Genre.");
       String search = searchbar1.getText();
       System.out.println(search);
     }//End handle
@@ -197,7 +199,6 @@ class ButtonClickHandler2 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("Searching by Title.");
       String search = searchbar2.getText();
       System.out.println(search);
     }//End handle
@@ -207,7 +208,6 @@ class ButtonClickHandler3 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("Searching by Artist.");
       String search = searchbar3.getText();
       System.out.println(search);
     }//End handle
@@ -217,7 +217,12 @@ class ButtonClickHandler4 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("Searching by Length.");      
+      if (ShortButton.isSelected())
+      System.out.println("Less than 2 Minute");
+      if (MediumButton.isSelected())
+      System.out.println("Between 2 to 4 Minutes");
+      if (LongButton.isSelected())
+      System.out.println("Greater than 4 Minutes");  
     }//End handle
   }//End ButtomClickHandler
 class ButtonClickHandler5 implements EventHandler<ActionEvent>
@@ -225,7 +230,6 @@ class ButtonClickHandler5 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("Searching by Album.");
       String search = searchbar5.getText();
       System.out.println(search);
     }//End handle
@@ -235,7 +239,6 @@ class ButtonClickHandler6 implements EventHandler<ActionEvent>
     @Override
     public void handle(ActionEvent event)
     {
-      label.setText("Searching by Year.");
       int search = Integer.parseInt(searchbar6.getText());
       System.out.println(search);
     }//End handle

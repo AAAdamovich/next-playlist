@@ -39,37 +39,41 @@ public class NextPlaylist extends Application
   * @param output The stream to which the query results will be sent to
   * @param query A SQL query that describes what sort of information is
   *   to be requested from the server
-  * 
-  * @throws SQLException
   */
-  private static void printSongs(PrintStream output, String query) throws SQLException
+  private static void printSongs(PrintStream output, String query)
   {
-    // TODO - Credentials needed to log onto remote server
-    final String SERVER = "taz.wcupa.edu";
-    final String DATABASE = "DarqChocolate";
-    final String USERNAME = "CnC";
-    final String PASSWORD = "vQB3po5qdvEuRANA";
+            // TODO - Credentials needed to log onto remote server
+            final String SERVER = "jdbc:mysql://db4free.net:3306/darqchocolate";
+            final String USERNAME = "cookieman";
+            final String PASSWORD = "cookiesandchocolate";
 
-    // Credentials are used to establish a connection
-    Connection conn = DriverManager.getConnection("jdbc:mysql:" + SERVER + "/" + DATABASE, USERNAME, PASSWORD);
-    // The statement object will drive any queries to the database
-    Statement st = conn.createStatement();
-    ResultSet results = st.executeQuery(query);
-    // metadata describes how the results are organized
-    // Used to fetch the column count of the results table,
-    //  necessary for printing the results later
-    ResultSetMetaData metadata = results.getMetaData();
+    try{
+        // Credentials are used to establish a connection
+        Connection conn = DriverManager.getConnection(SERVER, USERNAME, PASSWORD);
+        // The statement object will drive any queries to the database
+        Statement st = conn.createStatement();
+        ResultSet results = st.executeQuery(query);
+        // metadata describes how the results are organized
+        // Used to fetch the column count of the results table,
+        //  necessary for printing the results later
+        ResultSetMetaData metadata = results.getMetaData();
 
-    // These two loops control printing of the query results
-    // While loop iterates by row of results
-    while (results.next()){
-      // For loop iterates by column of results
-      for(int i = 1; i <= metadata.getColumnCount(); i++){
-        output.print(results.getString(i) + " ");
-      }
-      // Insert newline for every row iteration
-      output.println();
+        // These two loops control printing of the query results
+        // While loop iterates by row of results
+        while (results.next()){
+          // For loop iterates by column of results
+          for(int i = 1; i <= metadata.getColumnCount(); i++){
+            output.print(results.getString(i) + " ");
+          }
+          // Insert newline for every row iteration
+          output.println();
+        }
     }
+    catch(SQLException e){
+        // !! No error handling !!
+        e.printStackTrace();
+    }
+    
     // Extra padding for any text that comes after this method call
     output.println();
   }//end of printSongs
@@ -260,13 +264,14 @@ private void handleOptions(CheckBox  g1, CheckBox  g2, CheckBox  g3, CheckBox  g
       message += "Instrumental\n";
       System.out.println(message);
   }//End handleOptions
-class ButtonClickHandler2 implements EventHandler<ActionEvent>
+class ButtonClickHandler2 implements EventHandler<ActionEvent> 
   {
     @Override
     public void handle(ActionEvent event)
     {
       String search = searchbar2.getText();
-      System.out.println(search);
+      printSongs(System.out, "SELECT * FROM Song WHERE Song.title = \"" + search + "\"");
+      System.out.println(searchbar2.getText());
     }//End handle
   }//End ButtomClickHandler
 class ButtonClickHandler3 implements EventHandler<ActionEvent>

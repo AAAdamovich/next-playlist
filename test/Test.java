@@ -24,10 +24,10 @@ public class Test {
   private static void printSongs(PrintStream output, String query) throws Exception
   {
     // TODO - Credentials needed to log onto remote server
-    final String SERVER = "jdbc:mysql://127.0.0.1:3306/test";
+    final String SERVER = "jdbc:mysql://db4free.net:3306/darqchocolate";
     final String DATABASE = "test";
-    final String USERNAME = "root";//CnC
-    final String PASSWORD = "cookies";//vQB3po5qdvEuRANA
+    final String USERNAME = "cookieman";//CnC
+    final String PASSWORD = "cookiesandchocolate";//vQB3po5qdvEuRANA
     //Class.forName("com.mysql.jdbc.Driver");
     // Credentials are used to establish a connection
     System.out.println("Done1");
@@ -39,6 +39,7 @@ public class Test {
     
     System.out.println("Done3");
     ResultSet results = st.executeQuery(query);
+    
     
     System.out.println("Done4");
     // metadata describes how the results are organized

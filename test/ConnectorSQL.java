@@ -14,7 +14,7 @@
 *   http://docs.oracle.com/javase/8/docs/api/overview-summary.html
 *   Charles Herbert's "RemoteMySQLDemo" - cherbert@ccp.edu
 */
-package connectorsql;
+//package connectorsql;
 
 import java.io.BufferedWriter;
 import java.io.File;

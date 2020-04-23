@@ -1,5 +1,5 @@
 
-package test;
+//package test;
 
 import java.io.PrintStream;
 import java.sql.Connection;
@@ -21,19 +21,26 @@ public class Test {
   * 
   * @throws SQLException
   */
-  private static void printSongs(PrintStream output, String query) throws SQLException
+  private static void printSongs(PrintStream output, String query) throws Exception
   {
     // TODO - Credentials needed to log onto remote server
-    final String SERVER = "roadrunner.cs.wcupa.edu";
-    final String DATABASE = "DarqChocolate";
-    final String USERNAME = "CnC";
-    final String PASSWORD = "vQB3po5qdvEuRANA";
-
+    final String SERVER = "jdbc:mysql://127.0.0.1:3306/test";
+    final String DATABASE = "test";
+    final String USERNAME = "root";//CnC
+    final String PASSWORD = "cookies";//vQB3po5qdvEuRANA
+    //Class.forName("com.mysql.jdbc.Driver");
     // Credentials are used to establish a connection
-    Connection conn = DriverManager.getConnection("jdbc:mysql://" + SERVER + "/" + DATABASE, USERNAME, PASSWORD);
+    System.out.println("Done1");
+    Connection conn = DriverManager.getConnection(SERVER, USERNAME, PASSWORD);
     // The statement object will drive any queries to the database
+    
+    System.out.println("Done2");
     Statement st = conn.createStatement();
+    
+    System.out.println("Done3");
     ResultSet results = st.executeQuery(query);
+    
+    System.out.println("Done4");
     // metadata describes how the results are organized
     // Used to fetch the column count of the results table,
     //  necessary for printing the results later
@@ -51,10 +58,11 @@ public class Test {
     }
     // Extra padding for any text that comes after this method call
     output.println();
+    conn.close();
   }//end of printSongs
     
   
-  public static void main(String[] args) throws SQLException{
-        printSongs(System.out, "SELECT * FROM Songs");
+  public static void main(String[] args) throws Exception{
+        printSongs(System.out, "SELECT * FROM Song");
     }
 }

@@ -80,11 +80,11 @@ public class NextPlaylist extends Application
   
   
   private TextField searchbar1, searchbar2, FirstName, LastName, searchbar5, searchbar6;
-  private Label label, resultLabel4;
+  private Label label, resultLabel4, labeltitle, labeltitleS, songname2;
   private RadioButton ShortButton, MediumButton, LongButton;
   private CheckBox g1,g2,g3,g4,g5,g6,g7,g8,g9;
   Stage window;
-  Scene scene0,scene1,scene2,scene3,scene4,scene5,scene6;
+  Scene scene0,scene1,scene2, scene2x1, scene3, scene4, scene5, scene6;
   
   @Override
   public void start(Stage primaryStage) throws Exception
@@ -156,7 +156,7 @@ public class NextPlaylist extends Application
      StackPane layoutTitle = new StackPane();
      searchbar2 = new TextField();
      Button search2 = new Button("Search");
-     search2.setOnAction(new ButtonClickHandler2());
+     search2.setOnAction(y -> window.setScene(scene2x1));
      Button back2 = new Button("Back");
      back2.setOnAction(y -> window.setScene(scene0));
      HBox buttonOp2 = new HBox(10, search2, back2);
@@ -164,6 +164,21 @@ public class NextPlaylist extends Application
      layoutTitle.getChildren().add(layout2);
      scene2 = new Scene(layoutTitle, 400, 200);
     //end scene2
+    
+    //scene2.1
+    StackPane layoutTitleS = new StackPane();
+    labeltitleS = new Label("Found: ");
+    String s = "xxx";
+    //printSongs(System.out, "SELECT * FROM Song WHERE Song.title = \"" + searchbar2.getText() + "\"");
+    songname2 = new Label(s);
+    Button back2x1 = new Button("Back");
+    back2x1.setOnAction(y -> window.setScene(scene2));
+    HBox tt = new HBox(labeltitleS);
+    VBox layout2x1 = new VBox(10, tt, songname2, back2x1);
+    layoutTitleS.getChildren().add(layout2x1);
+    scene2x1 = new Scene(layoutTitleS, 400, 200);
+    //end scene2.1
+
     
     //scene 3
      StackPane layoutArtist = new StackPane();

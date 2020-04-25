@@ -125,9 +125,10 @@ public class NextPlaylist extends Application
   
   
   private TextField searchbar1, searchbar2, FirstName, LastName, searchbar5, searchbar6;
-  private Label label, resultLabel4, labeltitle, labeltitleS, songname2;
+  private Label label, resultLabel4, labeltitle, labeltitleS, songname2, resultTitle;
   private RadioButton ShortButton, MediumButton, LongButton;
   private CheckBox g1,g2,g3,g4,g5,g6,g7,g8,g9;
+  public String search;
   Stage window;
   Scene scene0,scene1,scene2, scene2x1, scene3, scene4, scene5, scene6;
   

@@ -197,15 +197,26 @@ public class NextPlaylist extends Application
     scene1 = new Scene(layoutGenre, 400, 200);
     //end scene1
     
-    //scene 2
+//scene 2
      StackPane layoutTitle = new StackPane();
      searchbar2 = new TextField();
+     Label found2 = new Label();
      Button search2 = new Button("Search");
-     search2.setOnAction(y -> window.setScene(scene2x1));
+     //search2.setOnAction(y -> window.setScene(scene2x1));
+     search2.setOnAction(event->
+     {
+       search = searchbar2.getText();
+       printSongs(System.out, "SELECT * FROM Song WHERE Song.title = \"" + search + "\"");
+       System.out.println(searchbar2.getText());
+       resultTitle.setText(search);
+       found2.setText("Found hit result");
+     });//End handle
+     Button result2 = new Button("Result");
+     result2.setOnAction(y -> window.setScene(scene2x1));
      Button back2 = new Button("Back");
      back2.setOnAction(y -> window.setScene(scene0));
      HBox buttonOp2 = new HBox(10, search2, back2);
-     VBox layout2 = new VBox(10, searchbar2, buttonOp2);
+     VBox layout2 = new VBox(10, searchbar2, buttonOp2,found2, result2);
      layoutTitle.getChildren().add(layout2);
      scene2 = new Scene(layoutTitle, 400, 200);
     //end scene2
@@ -214,11 +225,12 @@ public class NextPlaylist extends Application
     StackPane layoutTitleS = new StackPane();
     labeltitleS = new Label("Found: ");
     String s = "xxx";
+    resultTitle = new Label();
     //printSongs(System.out, "SELECT * FROM Song WHERE Song.title = \"" + searchbar2.getText() + "\"");
     songname2 = new Label(s);
     Button back2x1 = new Button("Back");
     back2x1.setOnAction(y -> window.setScene(scene2));
-    HBox tt = new HBox(labeltitleS);
+    HBox tt = new HBox(labeltitleS, resultTitle);
     VBox layout2x1 = new VBox(10, tt, songname2, back2x1);
     layoutTitleS.getChildren().add(layout2x1);
     scene2x1 = new Scene(layoutTitleS, 400, 200);

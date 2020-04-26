@@ -202,6 +202,10 @@ public class NextPlaylist extends Application
        Titletext = searchbar1.getText();
        searchTitle = getSongs("SELECT * FROM Song WHERE Song.title = \"" + Titletext + "\"");
        System.out.println(searchbar1.getText());
+       
+       if (searchTitle.length() == 0)
+       resultTitle.setText("No Result Found");
+       else
        resultTitle.setText(searchTitle);
        //add to resultHistory.setText(searchTitle);
      });//End handle
@@ -238,6 +242,9 @@ public class NextPlaylist extends Application
        searchArtist = getSongs("SELECT * FROM Song WHERE Song.artist = \"" + searchL + "\"");
        else
        searchArtist = getSongs("SELECT * FROM Song WHERE Song.artist = \"" + (searchF + " " + searchL)+ "\"");
+       if (searchArtist.length() == 0)
+       resultArtist.setText("No Result Found");
+       else
        resultArtist.setText(searchArtist);
        //add to resultHistory.setText(searchArtist);
      });
@@ -275,6 +282,9 @@ public class NextPlaylist extends Application
        Albumtext = searchbar3.getText();
        searchAlbum = getSongs("SELECT * FROM Song WHERE Song.title = \"" + Albumtext + "\"");
        System.out.println(searchbar3.getText());
+       if (searchAlbum.length() == 0)
+       resultAlbum.setText("No Result Found");
+       else
        resultAlbum.setText(searchAlbum);
        //add to resultHistory.setText(searchTitle);
      });//End handle
@@ -302,15 +312,15 @@ public class NextPlaylist extends Application
     //scene4
     StackPane layoutGenre = new StackPane();
     Label labelG = new Label("Check the ones you would like to search by:");
-    g1 = new CheckBox("POP");
-    g2 = new CheckBox("Hip Hop");
-    g3 = new CheckBox("Rock");
-    g4 = new CheckBox("Metal");
-    g5 = new CheckBox("Jazz");
-    g6 = new CheckBox("Country");
-    g7 = new CheckBox("Classical");
-    g8 = new CheckBox("Blues");
-    g9 = new CheckBox("Instrumental");
+    g1 = new CheckBox("Pop");
+    g2 = new CheckBox("Trap");
+    g3 = new CheckBox("Synthwave");
+    g4 = new CheckBox("Rap");
+    g5 = new CheckBox("Pop rock");
+    g6 = new CheckBox("R&B");
+   // g7 = new CheckBox("Classical");
+    //g8 = new CheckBox("Blues");
+   // g9 = new CheckBox("Instrumental");
     GridPane Genregrid = new GridPane();
     Genregrid.add(g1,0,0);
     Genregrid.add(g2,0,1);
@@ -318,13 +328,42 @@ public class NextPlaylist extends Application
     Genregrid.add(g4,1,0);
     Genregrid.add(g5,1,1);
     Genregrid.add(g6,1,2);
-    Genregrid.add(g7,2,0);
-    Genregrid.add(g8,2,1);
-    Genregrid.add(g9,2,2);
+ //   Genregrid.add(g7,2,0);
+ //   Genregrid.add(g8,2,1);
+  //  Genregrid.add(g9,2,2);
     backToMain4 = new Button("Back");
     backToMain4.setOnAction(w -> window.setScene(scene0));
     search4 = new Button("Search");
-    search4.setOnAction(e -> handleOptions(g1,g2,g3,g4,g5,g6,g7,g8,g9));
+    //search4.setOnAction(e -> handleOptions(g1,g2,g3,g4,g5,g6,g7,g8,g9));
+    search4.setOnAction(event->
+     {
+       String message = "You chose to search by\n";
+      if (g1.isSelected()){
+           message += "POP\n";
+           printSongs(System.out, "SELECT * FROM Song WHERE Song.genre = \"" + message + "\"");
+           // TODO - COntinue this pattern for all cases
+      }
+      if (g2.isSelected())
+      message += "Hip Hop\n";
+      if (g3.isSelected())
+      message += "Rock\n";
+      if (g4.isSelected())
+      message += "Metal\n";
+      if (g5.isSelected()) 
+      message += "Jazz\n";
+      if (g6.isSelected())
+      message += "Country\n";
+      if (g7.isSelected())
+      message += "Classical\n";
+      if (g8.isSelected())
+      message += "Blues\n";
+      if (g9.isSelected())
+      message += "Instrumental\n";
+      System.out.println(message);
+     });//End handle
+
+    
+    
     toHistory4 = new Button("History");
     toHistory4.setOnAction(w -> window.setScene(scene7));
     buttonOp4 = new HBox(10, search4, backToMain4);
@@ -350,6 +389,9 @@ public class NextPlaylist extends Application
       {
           searchLength = getSongs("SELECT * FROM Song WHERE Song.length < '00:02:01'");
           System.out.println("Less than 2 Minute");
+          if (searchLength.length() == 0)
+          resultLength.setText("No Result Found");
+          else
           resultLength.setText(searchLength);
       }
       
@@ -357,6 +399,9 @@ public class NextPlaylist extends Application
       {
           searchLength = getSongs("SELECT * FROM Song WHERE Song.length > '00:02:00' AND Song.length < '00:04:01'");
           System.out.println("Between 2 to 4 Minutes");
+          if (searchLength.length() == 0)
+          resultLength.setText("No Result Found");
+          else
           resultLength.setText(searchLength);
       }
       
@@ -364,6 +409,9 @@ public class NextPlaylist extends Application
       { 
           searchLength = getSongs("SELECT * FROM Song WHERE Song.length > '00:04:00'");
           System.out.println("Greater than 4 Minutes");
+          if (searchLength.length() == 0)
+          resultLength.setText("No Result Found");
+          else
           resultLength.setText(searchLength);
       }
 
@@ -400,6 +448,9 @@ public class NextPlaylist extends Application
        int Yeartextnum = Integer.parseInt(searchbar6.getText());
        searchYear = getSongs("SELECT * FROM Song WHERE Song.releaseyear = \"" + Yeartextnum + "\"");
        System.out.println(searchbar6.getText());
+       if (searchYear.length() == 0)
+       resultYear.setText("No Result Found");
+       else
        resultYear.setText(searchYear);
        //add to resultHistory.setText(searchTitle);
      });//End handle

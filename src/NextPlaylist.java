@@ -280,7 +280,7 @@ public class NextPlaylist extends Application
     search3.setOnAction(event->
      {
        Albumtext = searchbar3.getText();
-       searchAlbum = getSongs("SELECT * FROM Song WHERE Song.title = \"" + Albumtext + "\"");
+       searchAlbum = getSongs("SELECT * FROM Song WHERE Song.album = \"" + Albumtext + "\"");
        System.out.println(searchbar3.getText());
        if (searchAlbum.length() == 0)
        resultAlbum.setText("No Result Found");

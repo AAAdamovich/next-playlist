@@ -136,8 +136,11 @@ public class NextPlaylist extends Application
   private VBox S0Main, S4Genre, S1Title, S2Artist, S5Length, S3Album, S6Year, S7History;
   private HBox buttonOp1,buttonOp2,buttonOp3,buttonOp4,buttonOp5,buttonOp6;
   Stage window;
-  Scene scene0,scene1,scene2, scene3, scene4, scene5, scene6, scene7;
-  
+  Scene sceneX, scene0,scene1,scene2, scene3, scene4, scene5, scene6, scene7;
+  String user = "JavaFX2";
+  String pw = "password";
+  String checkUser, checkPw;
+ 
   @Override
   public void start(Stage primaryStage) throws Exception
   {
@@ -145,6 +148,39 @@ public class NextPlaylist extends Application
     //printSongs(System.out, "SELECT * FROM Songs");
       
     window = primaryStage;
+    
+    //sceneLogin
+    Label lblUserName = new Label("Username ");
+    final TextField txtUserName = new TextField();
+    Label lblPassword = new Label("Password ");
+    final PasswordField pf = new PasswordField();
+    Button btnLogin = new Button("Login");
+    final Label lblMessage1 = new Label();;
+    GridPane gridPane = new GridPane();
+    gridPane.add(lblUserName, 0, 0);
+    gridPane.add(txtUserName, 1, 0);
+    gridPane.add(lblMessage2, 1, 2);
+    gridPane.add(lblPassword, 0, 1);
+    gridPane.add(pf, 1, 1);
+    gridPane.add(btnLogin, 1, 3);
+    btnLogin.setOnAction(event -> {
+         
+          checkUser = txtUserName.getText().toString();
+          checkPw = pf.getText().toString();
+          if(checkUser.equals(user) && checkPw.equals(pw)){
+           //lblMessage.setText("Congratulations!");
+           primaryStage.setScene(scene0);
+          }
+          else{
+           lblMessage1.setText("Incorrect user or pw.");
+          }
+          txtUserName.setText("");
+          pf.setText("");
+         });
+    sceneX = new Scene(gridPane, 300, 200);
+    gridPane.setAlignment(Pos.CENTER);
+    //sceneLogin end
+
     //scene0
     Label label0 = new Label("Click on the what do want to search by");
 

@@ -267,7 +267,6 @@ public class NextPlaylist extends Application
     Label message3 = new Label("Search By Album");
     Label resultAlbum = new Label();
     Label sp3x1 = new Label();
-    Label sp3x2 = new Label();
     searchbar3 = new TextField();
     searchbar3.setPrefColumnCount(15);
     search3 = new Button("Search");
@@ -285,9 +284,7 @@ public class NextPlaylist extends Application
     toHistory3.setOnAction(w -> window.setScene(scene7));
     toHistory3.setMaxWidth(148);
     toHistory3.setStyle("-fx-text-fill: #0000ff");
-    HBox textlock3 = new HBox(sp3x1, searchbar3, sp3x2);
     buttonOp3 = new HBox(10, search3, backToMain3);
-    
     GridPane gridT3 = new GridPane();
     gridT3.add(message3, 0, 0);
     gridT3.add(searchbar3, 0, 1);
@@ -298,7 +295,6 @@ public class NextPlaylist extends Application
     layoutAlbum.getChildren().add(S3Album);
     scene3 = new Scene(layoutAlbum, 500, 200);
     S3Album.setAlignment(Pos.CENTER);
-    textlock3.setAlignment(Pos.CENTER);
     buttonOp3.setAlignment(Pos.CENTER);
     gridT3.setAlignment(Pos.CENTER);
     //end scene 3

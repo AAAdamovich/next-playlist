@@ -124,11 +124,11 @@ public class NextPlaylist extends Application
   }//end of printSongs
   
   
-  private TextField searchbar1, searchbar3, FirstName, LastName, searchbar5, searchbar6;
+    private TextField searchbar1, searchbar3, FirstName, LastName, searchbar5, searchbar6;
   private Label label, resultLabel4, labeltitle, labeltitleS, songname2, resultTitle, resultHistory, resultArtist, resultYear;
   private RadioButton ShortButton, MediumButton, LongButton;
   private CheckBox g1,g2,g3,g4,g5,g6,g7,g8,g9;
-  private String search, Titletext, Albumtext, Yeartext;
+  private String search, Titletext, Albumtext;
   private String searchTitle, searchArtist, searchAlbum, searchGenre, searchLength, searchYear;
   private Button toGenre, toTitle, toArtist, toLength, toAlbum, toYear, toHistory0, toHistory1, toHistory2, toHistory3, toHistory4,toHistory5, toHistory6;
   private Button backToMain1, backToMain2, backToMain3, backToMain4, backToMain5, backToMain6, backToMain7;
@@ -285,6 +285,7 @@ public class NextPlaylist extends Application
     toHistory3.setMaxWidth(148);
     toHistory3.setStyle("-fx-text-fill: #0000ff");
     buttonOp3 = new HBox(10, search3, backToMain3);
+    
     GridPane gridT3 = new GridPane();
     gridT3.add(message3, 0, 0);
     gridT3.add(searchbar3, 0, 1);
@@ -368,7 +369,7 @@ public class NextPlaylist extends Application
     scene6 = new Scene(layoutYear, 500, 200);
     */
     StackPane layoutYear = new StackPane();
-    Label message6 = new Label("Search By Title");
+    Label message6 = new Label("Search By Release Year");
     Label sp6 = new Label();
     searchbar6 = new TextField();
     searchbar6.setPrefColumnCount(15);
@@ -382,8 +383,8 @@ public class NextPlaylist extends Application
     toHistory6.setStyle("-fx-text-fill: #0000ff");
     search6.setOnAction(event->
      {
-       Yeartext = searchbar6.getText();
-       searchYear = getSongs("SELECT * FROM Song WHERE Song.releaseyear = \"" + Yeartext + "\"");
+       int Yeartextnum = Integer.parseInt(searchbar6.getText());
+       searchYear = getSongs("SELECT * FROM Song WHERE Song.releaseyear = \"" + Yeartextnum + "\"");
        System.out.println(searchbar6.getText());
        resultYear.setText(searchYear);
        //add to resultHistory.setText(searchTitle);
@@ -412,9 +413,6 @@ public class NextPlaylist extends Application
     layoutHistory.getChildren().add(S7History);
     scene7 = new Scene(layoutHistory, 500, 200);
     //end scene7
-
-
-    
     //Start Scene
     primaryStage.setScene(scene0);
     primaryStage.setTitle("Searching for Music App");

@@ -124,8 +124,8 @@ public class NextPlaylist extends Application
   }//end of printSongs
   
   
-    private TextField searchbar1, searchbar3, FirstName, LastName, searchbar5, searchbar6;
-  private Label label, resultLabel4, labeltitle, labeltitleS, songname2, resultTitle, resultHistory, resultArtist, resultYear;
+  private TextField searchbar1, searchbar3, FirstName, LastName, searchbar5, searchbar6;
+  private Label label, resultLabel4, labeltitle, labeltitleS, songname2, resultTitle, resultHistory, resultArtist, resultLength, resultYear;
   private RadioButton ShortButton, MediumButton, LongButton;
   private CheckBox g1,g2,g3,g4,g5,g6,g7,g8,g9;
   private String search, Titletext, Albumtext;
@@ -334,6 +334,7 @@ public class NextPlaylist extends Application
     //end scene4
     //scene5
     StackPane layoutlength = new StackPane();
+    resultLength = new Label();
     ShortButton = new RadioButton("Short");
     MediumButton = new RadioButton("Medium");
     LongButton = new RadioButton("Long");
@@ -343,31 +344,44 @@ public class NextPlaylist extends Application
     LongButton.setToggleGroup(radioGroup);
     MediumButton.setSelected(true);
     search5 = new Button("Search");
-    search5.setOnAction(new ButtonClickHistoryandler4());
+    search5.setOnAction(event->
+    {
+      if (ShortButton.isSelected())
+      {
+          searchLength = getSongs("SELECT * FROM Song WHERE Song.length < '00:02:01'");
+          System.out.println("Less than 2 Minute");
+          resultLength.setText(searchLength);
+      }
+      
+      if (MediumButton.isSelected())
+      {
+          searchLength = getSongs("SELECT * FROM Song WHERE Song.length > '00:02:00' AND Song.length < '00:04:01'");
+          System.out.println("Between 2 to 4 Minutes");
+          resultLength.setText(searchLength);
+      }
+      
+      if (LongButton.isSelected())
+      { 
+          searchLength = getSongs("SELECT * FROM Song WHERE Song.length > '00:04:00'");
+          System.out.println("Greater than 4 Minutes");
+          resultLength.setText(searchLength);
+      }
+
+    });//End handle
     backToMain5 = new Button("Back");
     backToMain5.setOnAction(y -> window.setScene(scene0));
+
     toHistory5 = new Button("History");
+    toHistory5.setMaxWidth(148);
+    toHistory5.setStyle("-fx-text-fill: #0000ff");
     toHistory5.setOnAction(w -> window.setScene(scene7));    
     HBox radioButton = new HBox(20, ShortButton, MediumButton, LongButton);
     buttonOp5 = new HBox(10, search5, backToMain5);
-    S5Length = new VBox(10, radioButton, buttonOp5, toHistory5);
+    S5Length = new VBox(10, radioButton, buttonOp5, resultLength, toHistory5);
     layoutlength.getChildren().add(S5Length);
-    scene5 = new Scene(layoutlength,500,200);
+    scene5 = new Scene(layoutlength,550,400);
     //end scene5
     //scene6
-  /*  StackPane layoutYear = new StackPane();
-    searchbar6 = new TextField();
-    search6 = new Button("Search");
-    search6.setOnAction(new ButtonClickHistoryandler6());
-    backToMain6 = new Button("Back");
-    backToMain6.setOnAction(y -> window.setScene(scene0));
-    toHistory6 = new Button("History");
-    toHistory6.setOnAction(w -> window.setScene(scene7));
-    buttonOp6 = new HBox(10, search6, backToMain6);
-    S6Year = new VBox(10, searchbar6, buttonOp6, toHistory6);
-    layoutYear.getChildren().add(S6Year);
-    scene6 = new Scene(layoutYear, 500, 200);
-    */
     StackPane layoutYear = new StackPane();
     Label message6 = new Label("Search By Release Year");
     Label sp6 = new Label();
@@ -445,29 +459,6 @@ private void handleOptions(CheckBox  g1, CheckBox  g2, CheckBox  g3, CheckBox  g
       message += "Instrumental\n";
       System.out.println(message);
   }//End handleOptions
-
-class ButtonClickHistoryandler4 implements EventHandler<ActionEvent>
-  {
-    @Override
-    public void handle(ActionEvent event)
-    {
-      if (ShortButton.isSelected()){
-          System.out.println("Less than 2 Minute");
-          printSongs(System.out, "SELECT * FROM Song WHERE Song.length < '00:02:01'");
-      }
-      
-      if (MediumButton.isSelected()){
-          System.out.println("Between 2 to 4 Minutes");
-          printSongs(System.out, "SELECT * FROM Song WHERE Song.length > '00:02:00' AND Song.length < '00:04:01'");
-      }
-      
-      if (LongButton.isSelected()){
-          System.out.println("Greater than 4 Minutes"); 
-          printSongs(System.out, "SELECT * FROM Song WHERE Song.length > '00:04:00'");
-      }
-      
-    }//End handle
-  }//End ButtomClickHistoryandler
 
   public static void main(String[] args)
   {

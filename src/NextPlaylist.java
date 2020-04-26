@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.CheckBox;
+import javafx.scene.paint.Color;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 import javafx.event.EventHandler;
@@ -152,14 +153,18 @@ public class NextPlaylist extends Application
     //sceneLogin
     Label lblUserName = new Label("Username ");
     final TextField txtUserName = new TextField();
+    txtUserName.setPrefColumnCount(15);
     Label lblPassword = new Label("Password ");
     final PasswordField pf = new PasswordField();
+    pf.setPrefColumnCount(15);
     Button btnLogin = new Button("Login");
+    Label lblMessage1 = new Label();
+    lblMessage1.setTextFill(Color.web("#ff0000", 0.8));
     final Label lblMessage1 = new Label();;
     GridPane gridPane = new GridPane();
     gridPane.add(lblUserName, 0, 0);
     gridPane.add(txtUserName, 1, 0);
-    gridPane.add(lblMessage2, 1, 2);
+    gridPane.add(lblMessage1, 1, 2);
     gridPane.add(lblPassword, 0, 1);
     gridPane.add(pf, 1, 1);
     gridPane.add(btnLogin, 1, 3);
@@ -168,7 +173,6 @@ public class NextPlaylist extends Application
           checkUser = txtUserName.getText().toString();
           checkPw = pf.getText().toString();
           if(checkUser.equals(user) && checkPw.equals(pw)){
-           //lblMessage.setText("Congratulations!");
            primaryStage.setScene(scene0);
           }
           else{

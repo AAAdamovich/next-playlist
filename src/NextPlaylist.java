@@ -31,9 +31,39 @@ import javafx.scene.layout.StackPane;
 public class NextPlaylist extends Application
 {
     // TODO - Louis work here
-    private static ArrayList<String> addSongs(ArrayList<String> songList){
-        
-        return null;
+    private static ArrayList<String> addSongs(ArrayList<String> songList, String query){
+        // TODO - Credentials needed to log onto remote server
+            final String SERVER = "jdbc:mysql://db4free.net:3306/darqchocolate";
+            final String USERNAME = "cookieman";
+            final String PASSWORD = "cookiesandchocolate";
+
+        try{
+            // Credentials are used to establish a connection
+            Connection conn = DriverManager.getConnection(SERVER, USERNAME, PASSWORD);
+            // The statement object will drive any queries to the database
+            Statement st = conn.createStatement();
+            ResultSet results = st.executeQuery(query);
+            // metadata describes how the results are organized
+            // Used to fetch the column count of the results table,
+            //  necessary for printing the results later
+            ResultSetMetaData metadata = results.getMetaData();
+
+            // These two loops control printing of the query results
+            // While loop iterates by row of results
+            while (results.next()){
+              // For loop iterates by column of results
+              for(int i = 1; i <= metadata.getColumnCount(); i++){
+                songList.add(results.getString(i) + " ");
+              }
+              // Insert newline for every row iteration
+              //output.println();
+            }
+        }
+        catch(SQLException e){
+            // !! No error handling !!
+            e.printStackTrace();
+        }
+        return songList;
     }
     
     /** Queries the database for songs based on an input query and returns 

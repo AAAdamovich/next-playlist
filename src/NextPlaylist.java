@@ -7,6 +7,7 @@
 
 import java.io.PrintStream;
 import java.sql.*;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -29,6 +30,12 @@ import javafx.scene.layout.StackPane;
 
 public class NextPlaylist extends Application
 {
+    // TODO - Louis work here
+    private static ArrayList<String> addSongs(ArrayList<String> songList){
+        
+        return null;
+    }
+    
     /** Queries the database for songs based on an input query and returns 
     * the results of the query as a single String. Each row from the query
     * result is given its own line in the String

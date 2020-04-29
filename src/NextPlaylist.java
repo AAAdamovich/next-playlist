@@ -31,6 +31,7 @@ import javafx.scene.layout.StackPane;
 public class NextPlaylist extends Application
 {
     // TODO - Louis work here
+    ArrayList<String> songList = new ArrayList<String>();
     private static ArrayList<String> addSongs(ArrayList<String> songList, String query){
         // TODO - Credentials needed to log onto remote server
             final String SERVER = "jdbc:mysql://db4free.net:3306/darqchocolate";

@@ -375,48 +375,39 @@ public class NextPlaylist extends Application
     Genregrid.add(g4,1,0);
     Genregrid.add(g5,1,1);
     Genregrid.add(g6,1,2);
- //   Genregrid.add(g7,2,0);
- //   Genregrid.add(g8,2,1);
-  //  Genregrid.add(g9,2,2);
     backToMain4 = new Button("Back");
     backToMain4.setOnAction(w -> window.setScene(scene0));
     search4 = new Button("Search");
     //search4.setOnAction(e -> handleOptions(g1,g2,g3,g4,g5,g6,g7,g8,g9));
     search4.setOnAction(event->
      {
-       String message = "You chose to search by\n";
-      if (g1.isSelected()){
-           message += "POP\n";
-           printSongs(System.out, "SELECT * FROM Song WHERE Song.genre = \"" + message + "\"");
-           // TODO - COntinue this pattern for all cases
-      }
+       String messages = "";
+      if (g1.isSelected())
+      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"Pop\"");
       if (g2.isSelected())
-      message += "Hip Hop\n";
+      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"Trap\"");
       if (g3.isSelected())
-      message += "Rock\n";
+      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"Synthwave\"");
       if (g4.isSelected())
-      message += "Metal\n";
+      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"Rap\"");
       if (g5.isSelected()) 
-      message += "Jazz\n";
+      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"Pop rock\"");
       if (g6.isSelected())
-      message += "Country\n";
-      if (g7.isSelected())
-      message += "Classical\n";
-      if (g8.isSelected())
-      message += "Blues\n";
-      if (g9.isSelected())
-      message += "Instrumental\n";
-      System.out.println(message);
+      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"R&B\"");
+      System.out.println(messages);
      });//End handle
 
-    
-    
     toHistory4 = new Button("History");
     toHistory4.setOnAction(w -> window.setScene(scene7));
+    toHistory4.setMaxWidth(148);
+    toHistory4.setStyle("-fx-text-fill: #0000ff");
     buttonOp4 = new HBox(10, search4, backToMain4);
     S4Genre = new VBox(10, labelG, Genregrid, buttonOp4, toHistory4);
     layoutGenre.getChildren().add(S4Genre);
     scene4 = new Scene(layoutGenre, 500, 200);
+    S4Genre.setAlignment(Pos.CENTER);
+    Genregrid.setAlignment(Pos.CENTER);
+    buttonOp4.setAlignment(Pos.CENTER);
     //end scene4
     //scene5
     StackPane layoutlength = new StackPane();

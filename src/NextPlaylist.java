@@ -235,7 +235,46 @@ public class NextPlaylist extends Application
     gridPane.setAlignment(Pos.CENTER);
 */    
 //sceneLogin end
+        //scene0
+    Label label0 = new Label("Click on the what do want to search by");
 
+    toTitle = new Button("Title");
+    toTitle.setMaxSize(100, 200);
+    toArtist = new Button("Artist");
+    toArtist.setMaxSize(100, 200);
+    toAlbum = new Button("Album");
+    toAlbum.setMaxSize(100, 200);
+    toGenre = new Button("Genre");
+    toGenre.setMaxSize(100, 200);
+    toLength = new Button("Length");
+    toLength.setMaxSize(100, 200);
+    toYear = new Button("Year");
+    toYear.setMaxSize(100, 200);
+    toHistory0 = new Button("History");
+    toHistory0.setMaxWidth(148);
+    toHistory0.setStyle("-fx-text-fill: #0000ff");
+    GridPane gridpane = new GridPane();
+    gridpane.add(toTitle,0,1);
+    gridpane.add(toArtist,1,1);
+    gridpane.add(toAlbum,2,1);
+    gridpane.add(toGenre,0,2);
+    gridpane.add(toLength,1,2);
+    gridpane.add(toYear,2,2);
+    toTitle.setOnAction(e -> window.setScene(scene1));
+    toArtist.setOnAction(e -> window.setScene(scene2));
+    toAlbum.setOnAction(e -> window.setScene(scene3));
+    toGenre.setOnAction(e -> window.setScene(scene4));
+    toLength.setOnAction(e -> window.setScene(scene5));
+    toYear.setOnAction(e -> window.setScene(scene6));
+    toHistory0.setOnAction(event -> {
+        resultHistory.setText(prettyPrint(songList));
+        window.setScene(scene7);
+    });
+    S0Main = new VBox(10, label0, gridpane, toHistory0);
+    scene0 = new Scene(S0Main, 300, 200);
+    S0Main.setAlignment(Pos.CENTER);
+    gridpane.setAlignment(Pos.CENTER);
+    //end scene 0
     //scene 1
      StackPane layoutTitle = new StackPane();
      Label message1 = new Label("Search By Title");

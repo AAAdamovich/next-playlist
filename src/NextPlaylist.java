@@ -176,11 +176,11 @@ public class NextPlaylist extends Application
   
   
   private TextField searchbar1, searchbar3, FirstName, LastName, searchbar5, searchbar6;
-  private Label label, resultLabel4, labeltitle, labeltitleS, songname2, resultTitle, resultHistory, resultArtist, resultLength, resultYear;
+  private Label label, resultLabel4, labeltitle, labeltitleS, songname2, resultTitle, resultHistory, resultArtist,resultGenre,resultGenre2, resultLength, resultYear,resultTitle2, resultHistory2, resultArtist2, resultLength2, resultYear2;
   private RadioButton ShortButton, MediumButton, LongButton;
   private CheckBox g1,g2,g3,g4,g5,g6,g7,g8,g9;
   private String search, Titletext, Albumtext;
-  private String searchTitle, searchArtist, searchAlbum, searchGenre, searchLength, searchYear;
+  private String searchTitle, searchArtist, searchAlbum, searchGenre, searchLength, searchYear,searchTitle2, searchArtist2, searchAlbum2, searchGenre2, searchLength2, searchYear2;
   private Button toGenre, toTitle, toArtist, toLength, toAlbum, toYear, toHistory0, toHistory1, toHistory2, toHistory3, toHistory4,toHistory5, toHistory6;
   private Button backToMain1, backToMain2, backToMain3, backToMain4, backToMain5, backToMain6, backToMain7;
   private Button search1, search2, search3, search4, search5, search6;
@@ -236,47 +236,6 @@ public class NextPlaylist extends Application
 */    
 //sceneLogin end
 
-    //scene0
-    Label label0 = new Label("Click on the what do want to search by");
-
-    toTitle = new Button("Title");
-    toTitle.setMaxSize(100, 200);
-    toArtist = new Button("Artist");
-    toArtist.setMaxSize(100, 200);
-    toAlbum = new Button("Album");
-    toAlbum.setMaxSize(100, 200);
-    toGenre = new Button("Genre");
-    toGenre.setMaxSize(100, 200);
-    toLength = new Button("Length");
-    toLength.setMaxSize(100, 200);
-    toYear = new Button("Year");
-    toYear.setMaxSize(100, 200);
-    toHistory0 = new Button("History");
-    toHistory0.setMaxWidth(148);
-    toHistory0.setStyle("-fx-text-fill: #0000ff");
-    GridPane gridpane = new GridPane();
-    gridpane.add(toTitle,0,1);
-    gridpane.add(toArtist,1,1);
-    gridpane.add(toAlbum,2,1);
-    gridpane.add(toGenre,0,2);
-    gridpane.add(toLength,1,2);
-    gridpane.add(toYear,2,2);
-    toTitle.setOnAction(e -> window.setScene(scene1));
-    toArtist.setOnAction(e -> window.setScene(scene2));
-    toAlbum.setOnAction(e -> window.setScene(scene3));
-    toGenre.setOnAction(e -> window.setScene(scene4));
-    toLength.setOnAction(e -> window.setScene(scene5));
-    toYear.setOnAction(e -> window.setScene(scene6));
-    toHistory0.setOnAction(event -> {
-        resultHistory.setText(prettyPrint(songList));
-        window.setScene(scene7);
-    });
-    S0Main = new VBox(10, label0, gridpane, toHistory0);
-    scene0 = new Scene(S0Main, 300, 200);
-    S0Main.setAlignment(Pos.CENTER);
-    gridpane.setAlignment(Pos.CENTER);
-    //end scene 0
-    
     //scene 1
      StackPane layoutTitle = new StackPane();
      Label message1 = new Label("Search By Title");
@@ -284,6 +243,7 @@ public class NextPlaylist extends Application
      searchbar1 = new TextField();
      searchbar1.setPrefColumnCount(15);
      resultTitle = new Label();
+     resultTitle2 = new Label();
      search1 = new Button("Search");
      backToMain1 = new Button("Back");
      backToMain1.setOnAction(w -> window.setScene(scene0));
@@ -294,13 +254,17 @@ public class NextPlaylist extends Application
      search1.setOnAction(event->
      {
        Titletext = searchbar1.getText();
-       searchTitle = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.title = \"" + Titletext + "\"");
+       searchTitle2 = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.title = \"" + Titletext + "\"");
+       searchTitle = getSongs("SELECT * FROM Song WHERE Song.title = \"" + Titletext + "\"");
        System.out.println(searchbar1.getText());
        
        if (searchTitle.length() == 0)
        resultTitle.setText("No Result Found");
        else
+       {
        resultTitle.setText(searchTitle);
+       resultTitle2.setText(searchTitle2);
+       }
        //add to resultHistory.setText(searchTitle);
      });//End handle
      buttonOp1 = new HBox(10, search1, backToMain1);
@@ -309,7 +273,7 @@ public class NextPlaylist extends Application
      gridT1.add(searchbar1, 0, 1);
      gridT1.add(sp1, 0, 3);
      gridT1.add(buttonOp1, 0, 4);
-     S1Title = new VBox(10, message1, gridT1, resultTitle, toHistory1);
+     S1Title = new VBox(10, message1, gridT1,resultTitle2, resultTitle);
      layoutTitle.getChildren().add(S1Title);
      scene1 = new Scene(layoutTitle, 500, 200);
      buttonOp1.setAlignment(Pos.CENTER);
@@ -323,6 +287,7 @@ public class NextPlaylist extends Application
      Label labelF = new Label("First Name");
      Label labelL = new Label("Last Name");
      Label resultArtist = new Label();
+     Label resultArtist2 = new Label();
      FirstName = new TextField();
      LastName = new TextField();
      search2 = new Button("Search");
@@ -331,15 +296,27 @@ public class NextPlaylist extends Application
        String searchF = FirstName.getText();
        String searchL = LastName.getText();
        if (searchL.length()==0)
-       searchArtist = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.artist = \"" + searchF + "\"");
+       {
+       searchArtist = getSongs("SELECT * FROM Song WHERE Song.artist = \"" + searchF + "\"");
+       searchArtist2 = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.artist = \"" + searchF + "\"");
+       }
        else if (searchF.length()==0)
-       searchArtist = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.artist = \"" + searchL + "\"");
+       {
+       searchArtist = getSongs("SELECT * FROM Song WHERE Song.artist = \"" + searchL + "\"");
+       searchArtist2 = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.artist = \"" + searchL + "\"");
+       }
        else
-       searchArtist = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.artist = \"" + (searchF + " " + searchL)+ "\"");
+       {
+       searchArtist = getSongs("SELECT * FROM Song WHERE Song.artist = \"" + (searchF + " " + searchL)+ "\"");
+       searchArtist2 = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.artist = \"" + (searchF + " " + searchL)+ "\"");
+       }
        if (searchArtist.length() == 0)
        resultArtist.setText("No Result Found");
        else
+       {
        resultArtist.setText(searchArtist);
+       resultArtist2.setText(searchArtist2);
+       }
        //add to resultHistory.setText(searchArtist);
      });
      backToMain2 = new Button("Back");
@@ -355,7 +332,7 @@ public class NextPlaylist extends Application
      ArtistGrid.add(FirstName, 0, 2);
      ArtistGrid.add(LastName, 1, 2);
      buttonOp2 = new HBox(10, search2, backToMain2);
-     S2Artist = new VBox(10, ArtistGrid, buttonOp2, resultArtist, toHistory2);
+     S2Artist = new VBox(10, ArtistGrid, buttonOp2, resultArtist2, resultArtist);
      layoutArtist.getChildren().add(S2Artist);
      scene2 = new Scene(layoutArtist, 500, 200);
      S2Artist.setAlignment(Pos.CENTER);
@@ -367,6 +344,7 @@ public class NextPlaylist extends Application
     StackPane layoutAlbum = new StackPane();
     Label message3 = new Label("Search By Album");
     Label resultAlbum = new Label();
+    Label resultAlbum2 = new Label();
     Label sp3x1 = new Label();
     searchbar3 = new TextField();
     searchbar3.setPrefColumnCount(15);
@@ -374,12 +352,17 @@ public class NextPlaylist extends Application
     search3.setOnAction(event->
      {
        Albumtext = searchbar3.getText();
-       searchAlbum = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.album = \"" + Albumtext + "\"");
+       searchAlbum2 = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.album = \"" + Albumtext + "\"");
+       
+       searchAlbum = getSongs("SELECT * FROM Song WHERE Song.album = \"" + Albumtext + "\"");
        System.out.println(searchbar3.getText());
        if (searchAlbum.length() == 0)
        resultAlbum.setText("No Result Found");
        else
+       {
        resultAlbum.setText(searchAlbum);
+       resultAlbum2.setText(searchAlbum2);
+       }
        //add to resultHistory.setText(searchTitle);
      });//End handle
     backToMain3 = new Button("Back");
@@ -396,7 +379,7 @@ public class NextPlaylist extends Application
     gridT3.add(sp3x1, 0, 3);
     gridT3.add(buttonOp3, 0, 4);
     
-    S3Album = new VBox(10, gridT3, resultAlbum, toHistory3);
+    S3Album = new VBox(10, gridT3,resultAlbum2, resultAlbum);
     layoutAlbum.getChildren().add(S3Album);
     scene3 = new Scene(layoutAlbum, 500, 200);
     S3Album.setAlignment(Pos.CENTER);
@@ -412,9 +395,8 @@ public class NextPlaylist extends Application
     g4 = new CheckBox("Rap");
     g5 = new CheckBox("Pop rock");
     g6 = new CheckBox("R&B");
-   // g7 = new CheckBox("Classical");
-    //g8 = new CheckBox("Blues");
-   // g9 = new CheckBox("Instrumental");
+    resultGenre = new Label();
+    resultGenre2 = new Label();
     GridPane Genregrid = new GridPane();
     Genregrid.add(g1,0,0);
     Genregrid.add(g2,0,1);
@@ -426,8 +408,6 @@ public class NextPlaylist extends Application
     backToMain4.setOnAction(w -> window.setScene(scene0));
     search4 = new Button("Search");
     //search4.setOnAction(e -> handleOptions(g1,g2,g3,g4,g5,g6,g7,g8,g9));
-    
-    
     search4.setOnAction(event->
      {
       ArrayList<String> genres = new ArrayList<String>();
@@ -462,14 +442,15 @@ public class NextPlaylist extends Application
       }
       // Run the generated query
       addSongs(songList, query);
+      //resultGenre.setText(genres);
      });//End handle
-
+    
     toHistory4 = new Button("History");
     toHistory4.setOnAction(w -> window.setScene(scene7));
     toHistory4.setMaxWidth(148);
     toHistory4.setStyle("-fx-text-fill: #0000ff");
     buttonOp4 = new HBox(10, search4, backToMain4);
-    S4Genre = new VBox(10, labelG, Genregrid, buttonOp4, toHistory4);
+    S4Genre = new VBox(10, labelG, Genregrid, buttonOp4,resultGenre2,resultGenre);
     layoutGenre.getChildren().add(S4Genre);
     scene4 = new Scene(layoutGenre, 500, 200);
     S4Genre.setAlignment(Pos.CENTER);
@@ -479,9 +460,11 @@ public class NextPlaylist extends Application
     //scene5
     StackPane layoutlength = new StackPane();
     resultLength = new Label();
-    ShortButton = new RadioButton("Short");
-    MediumButton = new RadioButton("Medium");
-    LongButton = new RadioButton("Long");
+    resultLength2 = new Label();
+    Label message5 = new Label("Search By Length");
+    ShortButton = new RadioButton("Short(Less than 2 Minute)");
+    MediumButton = new RadioButton("Medium(Between 2 to 4 Minutes)");
+    LongButton = new RadioButton("Long(Greater than 4 Minutes)");
     ToggleGroup radioGroup = new ToggleGroup();
     ShortButton.setToggleGroup(radioGroup);
     MediumButton.setToggleGroup(radioGroup);
@@ -492,32 +475,43 @@ public class NextPlaylist extends Application
     {
       if (ShortButton.isSelected())
       {
-          searchLength = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.length < '00:02:01'");
+          searchLength = getSongs("SELECT * FROM Song WHERE Song.length < '00:02:01'");
+          searchLength2 = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.length < '00:02:01'");
           System.out.println("Less than 2 Minute");
           if (searchLength.length() == 0)
           resultLength.setText("No Result Found");
           else
+          {
           resultLength.setText(searchLength);
+          resultLength2.setText(searchLength2);
+          }
       }
       
       if (MediumButton.isSelected())
       {
-          searchLength = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.length > '00:02:00' AND Song.length < '00:04:01'");
+          searchLength = getSongs("SELECT * FROM Song WHERE Song.length > '00:02:00' AND Song.length < '00:04:01'");
+          searchLength2 = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.length > '00:02:00' AND Song.length < '00:04:01'");
           System.out.println("Between 2 to 4 Minutes");
           if (searchLength.length() == 0)
           resultLength.setText("No Result Found");
           else
+          {
           resultLength.setText(searchLength);
+          resultLength2.setText(searchLength2);
+          }
       }
       
       if (LongButton.isSelected())
       { 
-          searchLength = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.length > '00:04:00'");
+          searchLength = getSongs("SELECT * FROM Song WHERE Song.length > '00:04:00'");
+          searchLength2 = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.length > '00:04:00'");
           System.out.println("Greater than 4 Minutes");
           if (searchLength.length() == 0)
           resultLength.setText("No Result Found");
-          else
+          else{
           resultLength.setText(searchLength);
+          resultLength2.setText(searchLength2);
+          }
       }
 
     });//End handle
@@ -528,9 +522,9 @@ public class NextPlaylist extends Application
     toHistory5.setMaxWidth(148);
     toHistory5.setStyle("-fx-text-fill: #0000ff");
     toHistory5.setOnAction(w -> window.setScene(scene7));    
-    HBox radioButton = new HBox(20, ShortButton, MediumButton, LongButton);
+    VBox radioButton = new VBox(20, ShortButton, MediumButton, LongButton);
     buttonOp5 = new HBox(10, search5, backToMain5);
-    S5Length = new VBox(10, radioButton, buttonOp5, resultLength, toHistory5);
+    S5Length = new VBox(10,message5, radioButton, buttonOp5,resultLength2, resultLength);
     layoutlength.getChildren().add(S5Length);
     scene5 = new Scene(layoutlength,550,400);
     //end scene5
@@ -541,6 +535,7 @@ public class NextPlaylist extends Application
     searchbar6 = new TextField();
     searchbar6.setPrefColumnCount(15);
     resultYear = new Label();
+    resultYear2 = new Label();
     search6 = new Button("Search");
     backToMain6 = new Button("Back");
     backToMain6.setOnAction(w -> window.setScene(scene0));
@@ -551,12 +546,16 @@ public class NextPlaylist extends Application
     search6.setOnAction(event->
      {
        int Yeartextnum = Integer.parseInt(searchbar6.getText());
-       searchYear = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.releaseyear = \"" + Yeartextnum + "\"");
+       searchYear2 = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.releaseyear = \"" + Yeartextnum + "\"");
+       searchYear = getSongs("SELECT * FROM Song WHERE Song.releaseyear = \"" + Yeartextnum + "\"");
        System.out.println(searchbar6.getText());
        if (searchYear.length() == 0)
        resultYear.setText("No Result Found");
        else
+       {
        resultYear.setText(searchYear);
+       resultYear2.setText(searchYear2);
+       }
        //add to resultHistory.setText(searchTitle);
      });//End handle
     buttonOp6 = new HBox(10, search6, backToMain6);
@@ -565,7 +564,7 @@ public class NextPlaylist extends Application
     gridT6.add(searchbar6, 0, 1);
     gridT6.add(sp6, 0, 3);
     gridT6.add(buttonOp6, 0, 4);
-    S6Year = new VBox(10, message6, gridT6, resultYear, toHistory6);
+    S6Year = new VBox(10, message6, gridT6,resultYear2, resultYear);
     layoutYear.getChildren().add(S6Year);
     scene6 = new Scene(layoutYear, 550, 400);
     buttonOp6.setAlignment(Pos.CENTER);

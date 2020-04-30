@@ -30,13 +30,22 @@ import javafx.scene.layout.StackPane;
 
 public class NextPlaylist extends Application
 {
-    // TODO - Louis work here
-    ArrayList<String> songList = new ArrayList<String>();
-    private static ArrayList<String> addSongs(ArrayList<String> songList, String query){
+
+    private static String prettyPrint(ArrayList<String> list){
+        String textBlock = "";
+        for(String song : list){
+            textBlock += song + "\n";
+        }
+        return textBlock;
+    }
+    
+    private static int addSongs(ArrayList<String> songList, String query){
         // TODO - Credentials needed to log onto remote server
             final String SERVER = "jdbc:mysql://db4free.net:3306/darqchocolate";
             final String USERNAME = "cookieman";
             final String PASSWORD = "cookiesandchocolate";
+            String nextSong = "";
+            int songsAdded = 0;
 
         try{
             // Credentials are used to establish a connection
@@ -49,22 +58,25 @@ public class NextPlaylist extends Application
             //  necessary for printing the results later
             ResultSetMetaData metadata = results.getMetaData();
 
-            // These two loops control printing of the query results
+            // These two loops control generation of the query results
             // While loop iterates by row of results
             while (results.next()){
               // For loop iterates by column of results
               for(int i = 1; i <= metadata.getColumnCount(); i++){
-                songList.add(results.getString(i) + " ");
+                nextSong += (results.getString(i) + " ");
               }
-              // Insert newline for every row iteration
-              //output.println();
+              // Add single line song to array and wipe String for next line
+              songList.add(nextSong);
+              nextSong = "";
+              songsAdded ++;
             }
+            return songsAdded;
         }
         catch(SQLException e){
             // !! No error handling !!
             e.printStackTrace();
+            return -1;
         }
-        return songList;
     }
     
     /** Queries the database for songs based on an input query and returns 
@@ -179,16 +191,16 @@ public class NextPlaylist extends Application
   String user = "JavaFX2";
   String pw = "password";
   String checkUser, checkPw;
+  ArrayList<String> songList = new ArrayList<String>();
  
   @Override
   public void start(Stage primaryStage) throws Exception
   {
-    // !! Query Testing - To be removed !!
-    //printSongs(System.out, "SELECT * FROM Songs");
       
     window = primaryStage;
     
     //sceneLogin
+    /*
     Label lblUserName = new Label("Username ");
     final TextField txtUserName = new TextField();
     txtUserName.setPrefColumnCount(15);
@@ -221,7 +233,8 @@ public class NextPlaylist extends Application
          });
     sceneX = new Scene(gridPane, 300, 200);
     gridPane.setAlignment(Pos.CENTER);
-    //sceneLogin end
+*/    
+//sceneLogin end
 
     //scene0
     Label label0 = new Label("Click on the what do want to search by");
@@ -254,7 +267,10 @@ public class NextPlaylist extends Application
     toGenre.setOnAction(e -> window.setScene(scene4));
     toLength.setOnAction(e -> window.setScene(scene5));
     toYear.setOnAction(e -> window.setScene(scene6));
-    toHistory0.setOnAction(e -> window.setScene(scene7));
+    toHistory0.setOnAction(event -> {
+        resultHistory.setText(prettyPrint(songList));
+        window.setScene(scene7);
+    });
     S0Main = new VBox(10, label0, gridpane, toHistory0);
     scene0 = new Scene(S0Main, 300, 200);
     S0Main.setAlignment(Pos.CENTER);
@@ -278,7 +294,7 @@ public class NextPlaylist extends Application
      search1.setOnAction(event->
      {
        Titletext = searchbar1.getText();
-       searchTitle = getSongs("SELECT * FROM Song WHERE Song.title = \"" + Titletext + "\"");
+       searchTitle = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.title = \"" + Titletext + "\"");
        System.out.println(searchbar1.getText());
        
        if (searchTitle.length() == 0)
@@ -315,11 +331,11 @@ public class NextPlaylist extends Application
        String searchF = FirstName.getText();
        String searchL = LastName.getText();
        if (searchL.length()==0)
-       searchArtist = getSongs("SELECT * FROM Song WHERE Song.artist = \"" + searchF + "\"");
+       searchArtist = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.artist = \"" + searchF + "\"");
        else if (searchF.length()==0)
-       searchArtist = getSongs("SELECT * FROM Song WHERE Song.artist = \"" + searchL + "\"");
+       searchArtist = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.artist = \"" + searchL + "\"");
        else
-       searchArtist = getSongs("SELECT * FROM Song WHERE Song.artist = \"" + (searchF + " " + searchL)+ "\"");
+       searchArtist = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.artist = \"" + (searchF + " " + searchL)+ "\"");
        if (searchArtist.length() == 0)
        resultArtist.setText("No Result Found");
        else
@@ -358,7 +374,7 @@ public class NextPlaylist extends Application
     search3.setOnAction(event->
      {
        Albumtext = searchbar3.getText();
-       searchAlbum = getSongs("SELECT * FROM Song WHERE Song.album = \"" + Albumtext + "\"");
+       searchAlbum = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.album = \"" + Albumtext + "\"");
        System.out.println(searchbar3.getText());
        if (searchAlbum.length() == 0)
        resultAlbum.setText("No Result Found");
@@ -410,22 +426,42 @@ public class NextPlaylist extends Application
     backToMain4.setOnAction(w -> window.setScene(scene0));
     search4 = new Button("Search");
     //search4.setOnAction(e -> handleOptions(g1,g2,g3,g4,g5,g6,g7,g8,g9));
+    
+    
     search4.setOnAction(event->
      {
-       String messages = "";
-      if (g1.isSelected())
-      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"Pop\"");
-      if (g2.isSelected())
-      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"Trap\"");
-      if (g3.isSelected())
-      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"Synthwave\"");
-      if (g4.isSelected())
-      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"Rap\"");
-      if (g5.isSelected()) 
-      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"Pop rock\"");
-      if (g6.isSelected())
-      messages += getSongs("SELECT * FROM Song WHERE Song.genre = \"R&B\"");
-      System.out.println(messages);
+      ArrayList<String> genres = new ArrayList<String>();
+      String query = "";
+      if (g1.isSelected()){
+          genres.add("Pop");
+      }
+      if (g2.isSelected()){
+          genres.add("Trap");
+      }
+      if (g3.isSelected()){
+          genres.add("Synthwave");
+      }
+      if (g4.isSelected()){
+          genres.add("Rap");
+      }
+      if (g5.isSelected()){
+          genres.add("Pop rock");
+      }
+      if (g6.isSelected()){
+          genres.add("R&B");
+      }
+      for(String genre : genres){
+          // If this is the first genre to search for, initial query string is specified
+          if(query.length() == 0){
+              query += "SELECT * FROM Song WHERE Song.genre = \"" + genre + "\"";
+          }
+          // For multiple genre search, append an OR clause for each additional genre
+          else{
+              query += " OR Song.genre = \"" + genre + "\"";
+          }
+      }
+      // Run the generated query
+      addSongs(songList, query);
      });//End handle
 
     toHistory4 = new Button("History");
@@ -456,7 +492,7 @@ public class NextPlaylist extends Application
     {
       if (ShortButton.isSelected())
       {
-          searchLength = getSongs("SELECT * FROM Song WHERE Song.length < '00:02:01'");
+          searchLength = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.length < '00:02:01'");
           System.out.println("Less than 2 Minute");
           if (searchLength.length() == 0)
           resultLength.setText("No Result Found");
@@ -466,7 +502,7 @@ public class NextPlaylist extends Application
       
       if (MediumButton.isSelected())
       {
-          searchLength = getSongs("SELECT * FROM Song WHERE Song.length > '00:02:00' AND Song.length < '00:04:01'");
+          searchLength = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.length > '00:02:00' AND Song.length < '00:04:01'");
           System.out.println("Between 2 to 4 Minutes");
           if (searchLength.length() == 0)
           resultLength.setText("No Result Found");
@@ -476,7 +512,7 @@ public class NextPlaylist extends Application
       
       if (LongButton.isSelected())
       { 
-          searchLength = getSongs("SELECT * FROM Song WHERE Song.length > '00:04:00'");
+          searchLength = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.length > '00:04:00'");
           System.out.println("Greater than 4 Minutes");
           if (searchLength.length() == 0)
           resultLength.setText("No Result Found");
@@ -515,7 +551,7 @@ public class NextPlaylist extends Application
     search6.setOnAction(event->
      {
        int Yeartextnum = Integer.parseInt(searchbar6.getText());
-       searchYear = getSongs("SELECT * FROM Song WHERE Song.releaseyear = \"" + Yeartextnum + "\"");
+       searchYear = "Songs Found: " + addSongs(songList, "SELECT * FROM Song WHERE Song.releaseyear = \"" + Yeartextnum + "\"");
        System.out.println(searchbar6.getText());
        if (searchYear.length() == 0)
        resultYear.setText("No Result Found");
@@ -541,6 +577,7 @@ public class NextPlaylist extends Application
     StackPane layoutHistory = new StackPane();
     Label xs = new Label("History: ");
     resultHistory = new Label();
+    resultHistory.setText(prettyPrint(songList));
     backToMain7 = new Button("Back");
     backToMain7.setOnAction(y -> window.setScene(scene0));
     S7History = new VBox(10, xs, resultHistory, backToMain7);
@@ -552,33 +589,6 @@ public class NextPlaylist extends Application
     primaryStage.setTitle("Searching for Music App");
     primaryStage.show();
   }//End start
-
-private void handleOptions(CheckBox  g1, CheckBox  g2, CheckBox  g3, CheckBox  g4, CheckBox  g5, CheckBox  g6, CheckBox  g7, CheckBox  g8, CheckBox  g9)
-   {
-      String message = "You chose to search by\n";
-      if (g1.isSelected()){
-           message += "POP\n";
-           printSongs(System.out, "SELECT * FROM Song WHERE Song.genre = \"" + message + "\"");
-           // TODO - COntinue this pattern for all cases
-      }
-      if (g2.isSelected())
-      message += "Hip Hop\n";
-      if (g3.isSelected())
-      message += "Rock\n";
-      if (g4.isSelected())
-      message += "Metal\n";
-      if (g5.isSelected()) 
-      message += "Jazz\n";
-      if (g6.isSelected())
-      message += "Country\n";
-      if (g7.isSelected())
-      message += "Classical\n";
-      if (g8.isSelected())
-      message += "Blues\n";
-      if (g9.isSelected())
-      message += "Instrumental\n";
-      System.out.println(message);
-  }//End handleOptions
 
   public static void main(String[] args)
   {

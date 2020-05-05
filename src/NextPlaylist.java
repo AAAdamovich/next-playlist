@@ -229,7 +229,7 @@ public class NextPlaylist extends Application
             primaryStage.setScene(scene0);
         }
         else{
-            lblMessage2.setText("Incorrect user or password.");
+            lblMessage1.setText("Incorrect user or password.");
         }
 
         // Wipe fields for incorrect passwords / future access

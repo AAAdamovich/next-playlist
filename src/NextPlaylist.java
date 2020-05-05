@@ -26,6 +26,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.StackPane;
 
 public class NextPlaylist extends Application
@@ -188,8 +189,6 @@ public class NextPlaylist extends Application
   private HBox buttonOp1,buttonOp2,buttonOp3,buttonOp4,buttonOp5,buttonOp6;
   Stage window;
   Scene sceneX, scene0,scene1,scene2, scene3, scene4, scene5, scene6, scene7;
-  String user = "JavaFX2";
-  String pw = "password";
   String checkUser, checkPw;
   ArrayList<String> songList = new ArrayList<String>();
  
@@ -200,42 +199,58 @@ public class NextPlaylist extends Application
     window = primaryStage;
     
     //sceneLogin
-    /*
     Label lblUserName = new Label("Username ");
     final TextField txtUserName = new TextField();
     txtUserName.setPrefColumnCount(15);
     Label lblPassword = new Label("Password ");
     final PasswordField pf = new PasswordField();
     pf.setPrefColumnCount(15);
-    Button btnLogin = new Button("Login");
+    Button login = new Button("Login");
+    Button store = new Button("Store");
+    
     Label lblMessage1 = new Label();
     lblMessage1.setTextFill(Color.web("#ff0000", 0.8));
-    final Label lblMessage1 = new Label();;
+    final Label lblMessage2 = new Label();
     GridPane gridPane = new GridPane();
     gridPane.add(lblUserName, 0, 0);
     gridPane.add(txtUserName, 1, 0);
-    gridPane.add(lblMessage1, 1, 2);
+    gridPane.add(lblMessage2, 1, 3);
     gridPane.add(lblPassword, 0, 1);
     gridPane.add(pf, 1, 1);
-    gridPane.add(btnLogin, 1, 3);
-    btnLogin.setOnAction(event -> {
-         
-          checkUser = txtUserName.getText().toString();
-          checkPw = pf.getText().toString();
-          if(checkUser.equals(user) && checkPw.equals(pw)){
-           primaryStage.setScene(scene0);
-          }
-          else{
-           lblMessage1.setText("Incorrect user or pw.");
-          }
-          txtUserName.setText("");
-          pf.setText("");
-         });
+    gridPane.add(login, 0, 2);
+    gridPane.add(store, 1, 2);
+    
+    login.setOnAction(event -> {
+
+        checkUser = txtUserName.getText();
+        checkPw = pf.getText();
+            
+        if(PasswordUtils.verifyUser(checkUser) && PasswordUtils.verifyPassword(checkPw)){
+            primaryStage.setScene(scene0);
+        }
+        else{
+            lblMessage2.setText("Incorrect user or password.");
+        }
+
+        // Wipe fields for incorrect passwords / future access
+        txtUserName.setText("");
+        pf.setText("");
+    });
+    
+     store.setOnAction(event -> {
+
+        checkUser = txtUserName.getText();
+        checkPw = pf.getText();
+        
+        PasswordUtils.saveLogin(checkUser, checkPw);
+        System.out.println("Credentials saved");
+
+    });
     sceneX = new Scene(gridPane, 300, 200);
     gridPane.setAlignment(Pos.CENTER);
-*/    
+
 //sceneLogin end
-        //scene0
+//scene0
     Label label0 = new Label("Click on the what do want to search by");
 
     toTitle = new Button("Title");
@@ -623,7 +638,7 @@ public class NextPlaylist extends Application
     scene7 = new Scene(layoutHistory, 500, 200);
     //end scene7
     //Start Scene
-    primaryStage.setScene(scene0);
+    primaryStage.setScene(sceneX);
     primaryStage.setTitle("Searching for Music App");
     primaryStage.show();
   }//End start
